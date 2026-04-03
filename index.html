@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语学习 - 经典智慧与现代生活</title>
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 自定义Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B4513',      // 深棕色
+                        secondary: '#D2B48C',    // 棕褐色
+                        accent: '#CD5C5C',       // 赭石色
+                        light: '#F5F5DC',        // 米色
+                        dark: '#3E2723',         // 深褐色
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                    },
+                    boxShadow: {
+                        'scroll': 'inset 0 -10px 10px -10px rgba(0, 0, 0, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .bg-pattern {
+                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%238b4513' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            }
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Serif SC', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .chapter-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .chapter-btn:hover {
+            transform: translateX(5px);
+        }
+        
+        .chapter-btn:active {
+            transform: translateX(2px);
+        }
+        
+        .translation-tab {
+            transition: all 0.3s ease;
+        }
+        
+        .translation-tab.active {
+            border-bottom: 2px solid #CD5C5C;
+            color: #CD5C5C;
+        }
+        
+        .translation-tab:hover {
+            color: #CD5C5C;
+        }
+        
+        .verse-highlight {
+            animation: highlight 2s ease-in-out;
+        }
+        
+        #save-note-btn {
+            transition: all 0.3s ease;
+        }
+        
+        #save-note-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        #save-note-btn:active {
+            transform: translateY(0);
+        }
+        
+        #prev-verse, #next-verse {
+            transition: all 0.3s ease;
+        }
+        
+        #prev-verse:hover, #next-verse:hover {
+            transform: translateY(-2px);
+        }
+        
+        .verse-item {
+            transition: all 0.3s ease;
+        }
+        
+        .verse-item:hover {
+            background-color: rgba(210, 180, 140, 0.1);
+            transform: translateX(5px);
+        }
+        
+        @keyframes highlight {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(205, 92, 92, 0.2); }
+            100% { background-color: transparent; }
+        }
+        
+        .scroll-progress {
+            height: 4px;
+            background: #CD5C5C;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 0%;
+            transition: width 0.2s ease;
+        }
+        
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .content-wrapper {
+            flex: 1;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                position: fixed;
+                z-index: 50;
+                height: 100vh;
+                overflow-y: auto;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark bg-pattern">
+    <!-- 滚动进度条 -->
+    <div class="scroll-progress"></div>
+    
+    <!-- 顶部导航栏 -->
+    <header class="bg-primary text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <button id="sidebar-toggle" class="lg:hidden text-xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <h1 class="text-xl md:text-2xl font-serif font-bold text-shadow">论语学习</h1>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="relative hidden md:block">
+                    <input type="text" id="top-search" placeholder="搜索章节..." class="py-1 px-3 rounded-full text-sm text-dark focus:outline-none focus:ring-2 focus:ring-accent">
+                    <button id="top-search-btn" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-dark">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="app-container">
+        <div class="content-wrapper flex">
+            <!-- 侧边栏导航 -->
+            <aside id="sidebar" class="sidebar w-64 bg-secondary bg-opacity-30 p-4 shadow-md">
+
+                
+                <h2 class="text-lg font-serif font-semibold mb-3 text-primary border-b border-primary pb-2">论语章节</h2>
+                <nav>
+                    <ul class="space-y-1 max-h-[calc(100vh-200px)] overflow-y-auto pr-2 scrollbar-hide">
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="xueer">
+                                <span>学而篇第一</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="weizheng">
+                                <span>为政篇第二</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="bayi">
+                                <span>八佾篇第三</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="liren">
+                                <span>里仁篇第四</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="gongyechang">
+                                <span>公冶长篇第五</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="yongye">
+                                <span>雍也篇第六</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="shuer">
+                                <span>述而篇第七</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="taibo">
+                                <span>泰伯篇第八</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="zihan">
+                                <span>子罕篇第九</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="xiangdang">
+                                <span>乡党篇第十</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="xianjin">
+                                <span>先进篇第十一</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="yanyuan">
+                                <span>颜渊篇第十二</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="zilu">
+                                <span>子路篇第十三</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="xianwen">
+                                <span>宪问篇第十四</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="weilinggong">
+                                <span>卫灵公篇第十五</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="jishi">
+                                <span>季氏篇第十六</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="yanghuo">
+                                <span>阳货篇第十七</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="weizi">
+                                <span>微子篇第十八</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="zizhang">
+                                <span>子张篇第十九</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="chapter-btn w-full text-left py-2 px-3 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200 flex justify-between items-center" data-chapter="yaoyue">
+                                <span>尧曰篇第二十</span>
+                                <i class="fa fa-chevron-right text-xs"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="mt-6 pt-4 border-t border-primary">
+                    <h2 class="text-lg font-serif font-semibold mb-3 text-primary">学习工具</h2>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#" class="flex items-center space-x-2 py-1 px-2 rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200">
+                                <i class="fa fa-bookmark"></i>
+                                <span>我的收藏</span>
+                            </a>
+                        </li>
+                        <li>
+                            <button id="download-notes-btn" class="flex items-center space-x-2 py-1 px-2 w-full rounded-md hover:bg-secondary hover:bg-opacity-50 transition-colors duration-200">
+                                <i class="fa fa-download"></i>
+                                <span>下载读书笔记</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+            
+            <!-- 主内容区 -->
+            <main class="main-content flex-1 p-4 md:p-6 lg:p-8">
+                <!-- 直接显示章节内容，不显示欢迎页面 -->
+                <div id="welcome-section" class="hidden">
+                    <!-- 欢迎页面内容已移除 -->
+                </div>
+                
+                <!-- 章节内容区 -->
+                <div id="chapter-content" class="hidden">
+                    <!-- 章节标题 -->
+                    <div class="mb-6">
+                        <h2 id="chapter-title" class="text-2xl md:text-3xl font-serif font-bold text-primary mb-2">学而篇第一</h2>
+                        <p id="chapter-intro" class="text-gray-600">《学而》是《论语》的第一篇，主要讲述学习的方法和态度，以及做人的道理。</p>
+                    </div>
+                    
+                    <!-- 原文与译文区 -->
+                    <div class="bg-white bg-opacity-80 rounded-lg shadow-md p-6 mb-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-serif font-semibold text-primary">原文与译文</h3>
+                            <div class="flex space-x-1">
+                                <button class="translation-tab active py-2 px-4 text-sm font-medium" data-translation="yang">杨伯峻译</button>
+                                <button class="translation-tab py-2 px-4 text-sm font-medium" data-translation="zhu">朱熹注</button>
+                                <button class="translation-tab py-2 px-4 text-sm font-medium" data-translation="other">其他译</button>
+                            </div>
+                        </div>
+                        
+                        <div id="verse-container" class="space-y-8">
+                            <!--  verse 1 -->
+                            <div class="verse-item border-l-4 border-primary pl-4">
+                                <div class="flex items-start mb-2">
+                                    <span class="verse-number bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center mr-2 mt-1">1</span>
+                                    <div class="verse-original font-serif text-lg">子曰："学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知而不愠，不亦君子乎？"</div>
+                                </div>
+                                <div class="verse-translation mt-3 pl-7">
+                                    <div id="yang-translation" class="translation-content">
+                                        <p class="mb-2"><strong>杨伯峻译文：</strong>孔子说："学了，然后按一定的时间去实习它，不也高兴吗？有志同道合的人从远处来，不也快乐吗？人家不了解我，我却不怨恨，不也是君子吗？"</p>
+                                    </div>
+                                    <div id="zhu-translation" class="translation-content hidden">
+                                        <p class="mb-2"><strong>朱熹集注：</strong>学之为言效也。人性皆善，而觉有先后，后觉者必效先觉之所为，乃可以明善而复其初也。习，鸟数飞也。学之不已，如鸟数飞也。说，喜意也。既学而又时时习之，则所学者熟，而中心喜说，其进自不能已矣。</p>
+                                        <p><strong>白话解：</strong>学习是仿效的意思。人性本来都是善良的，但觉悟有先后之分，后觉悟的人必须仿效先觉悟的人的行为，才能够明白善良的本质而恢复其初始的状态。习，就像鸟儿多次飞翔一样。学习不停止，就像鸟儿多次飞翔。说，是喜悦的意思。学习之后又时时温习实践，那么所学的内容就会熟练，心中就会喜悦，进步自然就不会停止了。</p>
+                                    </div>
+                                    <div id="other-translation" class="translation-content hidden">
+                                        <p class="mb-2"><strong>钱穆译文：</strong>先生说："学了能按时温习，不是很愉快吗？有朋友从远方来，不是很快乐吗？人家不了解我，我却不怨恨，不也是一位君子吗？"</p>
+                                        <p><strong>李泽厚译文：</strong>孔子说："学习而又不断实践，不是很愉快吗？有朋友从远方来，不是很快乐吗？人家不了解我，我也不怨恨，不也是君子吗？"</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!--  verse 2 -->
+                            <div class="verse-item border-l-4 border-primary pl-4">
+                                <div class="flex items-start mb-2">
+                                    <span class="verse-number bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center mr-2 mt-1">2</span>
+                                    <div class="verse-original font-serif text-lg">有子曰："其为人也孝弟，而好犯上者，鲜矣；不好犯上，而好作乱者，未之有也。君子务本，本立而道生。孝弟也者，其为仁之本与！"</div>
+                                </div>
+                                <div class="verse-translation mt-3 pl-7">
+                                    <div id="yang-translation-2" class="translation-content">
+                                        <p class="mb-2"><strong>杨伯峻译文：</strong>有子说："他的为人，孝顺父母，敬爱兄长，却喜欢触犯上级，这种人是很少的；不喜欢触犯上级，却喜欢造反，这种人从来没有过。君子专心致力于基础工作，基础树立了，'道'就会产生。孝顺父母、敬爱兄长，这就是'仁'的基础吧！"</p>
+                                    </div>
+                                    <div id="zhu-translation-2" class="translation-content hidden">
+                                        <p class="mb-2"><strong>朱熹集注：</strong>善事父母为孝，善事兄长为弟。犯上，谓干犯在上之人。鲜，少也。作乱，谓悖逆争斗。务，专力也。本，犹根也。仁者，爱之理，心之德也。为仁，犹曰行仁。与者，疑辞，谦退不敢质言也。</p>
+                                        <p><strong>白话解：</strong>好好侍奉父母叫做孝，好好侍奉兄长叫做悌。犯上，是指冒犯地位在上的人。鲜，是少的意思。作乱，是指叛逆争斗。务，是专心致力的意思。本，犹如树根。仁，是爱的道理，心的品德。为仁，犹如说实行仁道。与，是表示疑问的语气词，是谦虚不敢断然肯定的说法。</p>
+                                    </div>
+                                    <div id="other-translation-2" class="translation-content hidden">
+                                        <p class="mb-2"><strong>钱穆译文：</strong>有子说："若其人是一个孝弟之人，而会存心喜好犯上的，那必很少了。若其人不喜好犯上，而好作乱的，就更不会有了。君子专力在事情的根本处，根本建立起，道就由此而生了。孝弟该是仁道的根本吧？"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between mt-8">
+                            <button id="prev-verse" class="flex items-center text-primary hover:text-accent transition-colors duration-200">
+                                <i class="fa fa-chevron-left mr-2"></i>
+                                上一章
+                            </button>
+                            <button id="next-verse" class="flex items-center text-primary hover:text-accent transition-colors duration-200">
+                                下一章
+                                <i class="fa fa-chevron-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 现代应用区 -->
+                    <div class="bg-white bg-opacity-80 rounded-lg shadow-md p-6 mb-8">
+                        <h3 class="text-xl font-serif font-semibold text-primary mb-4">现代生活应用</h3>
+                        <div id="modern-application" class="prose max-w-none">
+                            <h4 class="text-lg font-medium mb-3">学习与实践的统一</h4>
+                            <p class="mb-4">"学而时习之，不亦说乎？"在现代社会，这句话提醒我们学习不是目的，而是手段。真正的学习是将所学知识应用到实践中，并在实践中不断反思和提升。这种"知行合一"的学习态度，不仅适用于学生，也适用于职场人士。</p>
+                            
+                            <div class="bg-secondary bg-opacity-20 p-4 rounded-md mb-4">
+                                <h5 class="font-medium mb-2">职场应用案例</h5>
+                                <p>小王是一名刚入职的市场营销专员，他在大学学习了市场营销理论，但在实际工作中发现理论与实践有很大差距。于是他开始将每天学到的知识应用到工作中，并且定期总结经验教训。通过这种"学而时习之"的方法，他在短短三个月内就成为了团队中的佼佼者。</p>
+                            </div>
+                            
+                            <h4 class="text-lg font-medium mb-3">人际关系的智慧</h4>
+                            <p class="mb-4">"有朋自远方来，不亦乐乎？"在社交媒体发达的今天，我们虽然可以轻松地与远方的朋友保持联系，但真正的友谊仍然需要面对面的交流和心灵的沟通。这句话提醒我们要珍惜真挚的友谊，不要被虚拟的社交所迷惑。</p>
+                            
+                            <p class="mb-4">"人不知而不愠，不亦君子乎？"在信息爆炸的时代，我们常常渴望被理解、被认可。但事实上，不是所有人都能理解我们的想法和行为。这句话教导我们要保持平和的心态，不要因为别人的不理解而怨恨，而是要坚持自己的原则和信念。</p>
+                            
+                            <div class="bg-secondary bg-opacity-20 p-4 rounded-md">
+                                <h5 class="font-medium mb-2">生活应用案例</h5>
+                                <p>张教授是一位著名的学者，他提出了一个新的学术观点，但遭到了同行的质疑和批评。面对这些不理解，他没有怨恨，而是耐心地解释自己的观点，并在实践中不断完善和验证。最终，他的观点得到了学术界的认可。这正是"人不知而不愠"的君子之风。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 读书笔记区 -->
+                    <div class="bg-white bg-opacity-80 rounded-lg shadow-md p-6 mb-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-serif font-semibold text-primary">读书笔记</h3>
+                            <button id="save-note-btn" class="bg-accent hover:bg-opacity-90 text-white py-1 px-4 rounded-full text-sm transition-colors duration-200">
+                                保存笔记
+                            </button>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <textarea id="chapter-note" class="w-full h-32 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="在这里记录您的学习心得..."></textarea>
+                        </div>
+                        
+                        <div id="saved-notes" class="space-y-4">
+                            <!-- 已保存的笔记将显示在这里 -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- 底部导航 -->
+    <footer class="bg-primary text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">论语学习</h3>
+                    <p class="text-sm text-gray-300">探索儒家经典智慧，感悟千年文化精髓，将古代哲思应用于现代生活。</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">学习进度</h3>
+                    <div class="mb-2">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>已学习章节</span>
+                            <span id="progress-text">0/20</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2.5">
+                            <div id="progress-bar" class="bg-accent h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-300 mb-4 md:mb-0">© 2025 论语学习. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // 滚动进度条
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector(".scroll-progress").style.width = scrolled + "%";
+        });
+        
+        // 更新学习进度
+        function updateLearningProgress() {
+            const learnedChapters = JSON.parse(localStorage.getItem('learnedChapters')) || [];
+            const totalChapters = 20; // 总章节数
+            const learnedCount = learnedChapters.length;
+            const progressPercentage = (learnedCount / totalChapters) * 100;
+            
+            // 更新进度文本和进度条
+            document.getElementById('progress-text').textContent = `${learnedCount}/${totalChapters}`;
+            document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+        }
+        
+        // 更新章节列表状态
+        function updateChapterListStatus() {
+            const learnedChapters = JSON.parse(localStorage.getItem('learnedChapters')) || [];
+            
+            // 更新所有章节按钮的状态
+            document.querySelectorAll('.chapter-btn').forEach(btn => {
+                const chapterId = btn.getAttribute('data-chapter');
+                if (learnedChapters.includes(chapterId)) {
+                    btn.classList.add('bg-accent', 'bg-opacity-30', 'border-l-4', 'border-accent', 'font-medium');
+                    // 添加已学习标记
+                    if (!btn.querySelector('.learned-mark')) {
+                        const mark = document.createElement('span');
+                        mark.className = 'learned-mark text-accent font-bold ml-2';
+                        mark.innerHTML = ' ✓';
+                        btn.appendChild(mark);
+                    }
+                } else {
+                    btn.classList.remove('bg-accent', 'bg-opacity-30', 'border-l-4', 'border-accent', 'font-medium');
+                    // 移除已学习标记
+                    const mark = btn.querySelector('.learned-mark');
+                    if (mark) {
+                        btn.removeChild(mark);
+                    }
+                }
+            });
+        }
+        
+        // 切换章节学习状态（标记或取消标记）
+        function toggleChapterLearned(chapterId) {
+            let learnedChapters = JSON.parse(localStorage.getItem('learnedChapters')) || [];
+            
+            if (learnedChapters.includes(chapterId)) {
+                // 如果章节已被标记为已学习，则移除
+                learnedChapters = learnedChapters.filter(id => id !== chapterId);
+            } else {
+                // 如果章节还没有被标记为已学习，则添加
+                learnedChapters.push(chapterId);
+            }
+            
+            localStorage.setItem('learnedChapters', JSON.stringify(learnedChapters));
+            
+            // 更新进度和章节状态
+            updateLearningProgress();
+            updateChapterListStatus();
+        }
+        
+        // 侧边栏切换
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+        
+        // 页面加载时直接显示章节内容，不显示欢迎页面
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('welcome-section').classList.add('hidden');
+            document.getElementById('chapter-content').classList.remove('hidden');
+            // 默认加载学而篇
+            loadChapter('xueer');
+            // 更新学习进度
+            updateLearningProgress();
+        });
+        
+        // 章节按钮点击事件
+        document.querySelectorAll('.chapter-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const chapterId = this.getAttribute('data-chapter');
+                
+                // 检查是否是左键点击（可以根据需要调整）
+                if (e.button === 0) {
+                    // 切换学习状态
+                    toggleChapterLearned(chapterId);
+                    
+                    // 加载章节内容
+                    loadChapter(chapterId);
+                    
+                    // 在移动设备上点击章节后关闭侧边栏
+                    if (window.innerWidth < 768) {
+                        document.getElementById('sidebar').classList.remove('open');
+                    }
+                }
+            });
+        });
+        
+        // 章节标题和介绍
+        const chapterTitles = {
+            'xueer': '学而篇第一',
+            'weizheng': '为政篇第二',
+            'bayi': '八佾篇第三',
+            'liren': '里仁篇第四',
+            'gongyechang': '公冶长篇第五',
+            'yongye': '雍也篇第六',
+            'shuer': '述而篇第七',
+            'taibo': '泰伯篇第八',
+            'zihan': '子罕篇第九',
+            'xiangdang': '乡党篇第十',
+            'xianjin': '先进篇第十一',
+            'yanyuan': '颜渊篇第十二',
+            'zilu': '子路篇第十三',
+            'xianwen': '宪问篇第十四',
+            'weilinggong': '卫灵公篇第十五',
+            'jishi': '季氏篇第十六',
+            'yanghuo': '阳货篇第十七',
+            'weizi': '微子篇第十八',
+            'zizhang': '子张篇第十九',
+            'yaoyue': '尧曰篇第二十'
+        };
+        
+        const chapterIntros = {
+            'xueer': '《学而》是《论语》的第一篇，主要讲述学习的方法和态度，以及做人的道理。',
+            'weizheng': '《为政》是《论语》的第二篇，主要讲述政治治理的原则和方法，以及个人修养与政治的关系。',
+            'bayi': '《八佾》是《论语》的第三篇，主要记录孔子谈论礼乐。',
+            'liren': '《里仁》是《论语》的第四篇，主要讲述仁德的重要性和实践方法。',
+            'gongyechang': '《公冶长》是《论语》的第五篇，主要记录孔子对其弟子的评价和言论。',
+            'yongye': '《雍也》是《论语》的第六篇，主要记录孔子和弟子们的言行。',
+            'shuer': '《述而》是《论语》的第七篇，主要记录孔子的容貌和言行。',
+            'taibo': '《泰伯》是《论语》的第八篇，主要记录孔子和曾子的言论及其对古人的评论。',
+            'zihan': '《子罕》是《论语》的第九篇，主要记录孔子的言行和思想，以及他对一些问题的看法。',
+            'xiangdang': '《乡党》是《论语》的第十篇，主要记录孔子的言谈举止、衣食住行和生活习惯。',
+            'xianjin': '《先进》是《论语》的第十一篇，主要记录孔子教育言论和对其弟子的评论。',
+            'yanyuan': '《颜渊》是《论语》的第十二篇，主要记录孔子教育弟子如何实行仁德，如何为政和处世。',
+            'zilu': '《子路》是《论语》的第十三篇，主要记录孔子论述为人和为政的道理。',
+            'xianwen': '《宪问》是《论语》的第十四篇，主要记录孔子和其弟子论修身为人之道，以及对古人的评价。',
+            'weilinggong': '《卫灵公》是《论语》的第十五篇，主要记录孔子在卫国期间的言论和行为。',
+            'jishi': '《季氏》是《论语》的第十六篇，主要记录孔子论君子修身，以及如何用礼法治国。',
+            'yanghuo': '《阳货》是《论语》的第十七篇，主要记录孔子论述仁德，阐发礼乐治国之道。',
+            'weizi': '《微子》是《论语》的第十八篇，主要记录古代圣贤事迹、孔子众人周游列国中的言行及周游途中世人对于乱世的看法。',
+            'zizhang': '《子张》是《论语》的第十九篇，主要记录孔子和弟子们探讨求学为道的言论，弟子们对于孔子的敬仰赞颂。',
+            'yaoyue': '《尧曰》是《论语》的第二十篇，主要记录古代圣贤的言论和孔子对于为政的论述。'
+        };
+        
+        // 加载章节内容
+        function loadChapter(chapterId) {
+            // 这里可以根据chapterId加载不同章节的内容
+            // 目前使用模拟数据
+            
+            document.getElementById('chapter-title').textContent = chapterTitles[chapterId];
+            document.getElementById('chapter-intro').textContent = chapterIntros[chapterId];
+            
+            // 根据章节加载不同的原文、译文和现代应用内容
+            // 目前为每个章节提供基本内容结构
+            const verseContainer = document.getElementById('verse-container');
+            const modernApplication = document.getElementById('modern-application');
+            
+            // 如果是学而篇，保持原有内容
+            if (chapterId === 'xueer') {
+                // 学而篇的内容已经在HTML中定义，保持不变
+            } else {
+                // 为其他章节提供基本内容结构
+                verseContainer.innerHTML = `
+                    <div class="verse-item border-l-4 border-primary pl-4">
+                        <div class="flex items-start mb-2">
+                            <span class="verse-number bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center mr-2 mt-1">1</span>
+                            <div class="verse-original font-serif text-lg">${getChapterFirstVerse(chapterId)}</div>
+                        </div>
+                        <div class="verse-translation mt-3 pl-7">
+                            <div id="yang-translation" class="translation-content">
+                                <p class="mb-2"><strong>杨伯峻译文：</strong>${getChapterTranslation(chapterId, 'yang')}</p>
+                            </div>
+                            <div id="zhu-translation" class="translation-content hidden">
+                                <p class="mb-2"><strong>朱熹集注：</strong>${getChapterTranslation(chapterId, 'zhu')}</p>
+                            </div>
+                            <div id="other-translation" class="translation-content hidden">
+                                <p class="mb-2"><strong>其他译文：</strong>${getChapterTranslation(chapterId, 'other')}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // 提供基本的现代应用内容
+                modernApplication.innerHTML = `
+                    <h4 class="text-lg font-medium mb-3">现代生活应用</h4>
+                    <p class="mb-4">本章内容在现代生活中有重要的应用价值。${getChapterApplication(chapterId)}</p>
+                    
+                    <div class="bg-secondary bg-opacity-20 p-4 rounded-md mb-4">
+                        <h5 class="font-medium mb-2">应用案例</h5>
+                        <p>在现代社会中，${getChapterExample(chapterId)}</p>
+                    </div>
+                `;
+            }
+            
+            // 显示章节内容，隐藏欢迎页面
+            document.getElementById('welcome-section').classList.add('hidden');
+            document.getElementById('chapter-content').classList.remove('hidden');
+            
+            // 加载该章节的笔记
+            loadChapterNote(chapterId);
+            
+            // 切换章节学习状态
+            // 注意：这里不再自动标记为已学习，而是通过点击章节按钮来切换状态
+            // toggleChapterLearned(chapterId);
+            
+            // 滚动到顶部
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // 译文标签切换
+        document.querySelectorAll('.translation-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有标签的active类
+                document.querySelectorAll('.translation-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // 添加当前标签的active类
+                this.classList.add('active');
+                
+                // 获取要显示的译文类型
+                const translationType = this.getAttribute('data-translation');
+                
+                // 隐藏所有译文内容
+                document.querySelectorAll('.translation-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // 显示选中的译文内容
+                document.querySelectorAll(`#${translationType}-translation, #${translationType}-translation-2`).forEach(content => {
+                    content.classList.remove('hidden');
+                });
+            });
+        });
+        
+        // 章节顺序数组
+        const chapterOrder = ['xueer', 'weizheng', 'bayi', 'liren', 'gongyechang', 'yongye', 'shuer', 'taibo', 'zihan', 'xiangdang', 'xianjin', 'yanyuan', 'zilu', 'xianwen', 'weilinggong', 'jishi', 'yanghuo', 'weizi', 'zizhang', 'yaoyue'];
+        
+        // 上一章/下一章按钮
+        document.getElementById('prev-verse').addEventListener('click', function() {
+            const currentChapter = document.getElementById('chapter-title').textContent;
+            const chapterId = Object.keys(chapterTitles).find(key => chapterTitles[key] === currentChapter);
+            const currentIndex = chapterOrder.indexOf(chapterId);
+            
+            if (currentIndex > 0) {
+                const prevChapterId = chapterOrder[currentIndex - 1];
+                loadChapter(prevChapterId);
+            } else {
+                alert('已经是第一章了');
+            }
+        });
+        
+        document.getElementById('next-verse').addEventListener('click', function() {
+            const currentChapter = document.getElementById('chapter-title').textContent;
+            const chapterId = Object.keys(chapterTitles).find(key => chapterTitles[key] === currentChapter);
+            const currentIndex = chapterOrder.indexOf(chapterId);
+            
+            if (currentIndex < chapterOrder.length - 1) {
+                const nextChapterId = chapterOrder[currentIndex + 1];
+                loadChapter(nextChapterId);
+            } else {
+                alert('已经是最后一章了');
+            }
+        });
+        
+        // 获取章节第一句原文
+        function getChapterFirstVerse(chapterId) {
+            const firstVerses = {
+                'xueer': '子曰："学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知而不愠，不亦君子乎？"',
+                'weizheng': '子曰："为政以德，譬如北辰，居其所而众星共之。"',
+                'bayi': '孔子谓季氏，"八佾舞于庭，是可忍也，孰不可忍也？"',
+                'liren': '子曰："里仁为美。择不处仁，焉得知？"',
+                'gongyechang': '子谓公冶长，"可妻也。虽在缧绁之中，非其罪也。"以其子妻之。',
+                'yongye': '子曰："雍也可使南面。"',
+                'shuer': '子曰："述而不作，信而好古，窃比于我老彭。"',
+                'taibo': '子曰："泰伯，其可谓至德也已矣。三以天下让，民无得而称焉。"',
+                'zihan': '子罕言利与命与仁。',
+                'xiangdang': '孔子于乡党，恂恂如也，似不能言者。',
+                'xianjin': '子曰："先进于礼乐，野人也；后进于礼乐，君子也。如用之，则吾从先进。"',
+                'yanyuan': '颜渊问仁。子曰："克己复礼为仁。一日克己复礼，天下归仁焉。为仁由己，而由人乎哉？"',
+                'zilu': '子路问政。子曰："先之劳之。"请益。曰："无倦。"',
+                'xianwen': '宪问耻。子曰："邦有道，谷；邦无道，谷，耻也。"',
+                'weilinggong': '卫灵公问陈于孔子。孔子对曰："俎豆之事，则尝闻之矣；军旅之事，未之学也。"明日遂行。',
+                'jishi': '季氏将伐颛臾。冉有、季路见于孔子曰："季氏将有事于颛臾。"',
+                'yanghuo': '阳货欲见孔子，孔子不见，归孔子豚。孔子时其亡也，而往拜之，遇诸涂。',
+                'weizi': '微子去之，箕子为之奴，比干谏而死。孔子曰："殷有三仁焉。"',
+                'zizhang': '子张曰："士见危致命，见得思义，祭思敬，丧思哀，其可已矣。"',
+                'yaoyue': '尧曰："咨！尔舜！天之历数在尔躬，允执其中。四海困穷，天禄永终。"舜亦以命禹。'
+            };
+            return firstVerses[chapterId] || '本章内容待添加';
+        }
+        
+        // 获取章节译文
+        function getChapterTranslation(chapterId, type) {
+            const translations = {
+                'yang': {
+                    'weizheng': '孔子说："用道德来治理国政，自己便会像北极星一般，在一定的位置上，别的星辰都环绕着它。"',
+                    'bayi': '孔子谈到季氏，说："他用六十四人在庭院中奏乐舞蹈，这都可以容忍，什么是不可容忍的呢？"',
+                    'liren': '孔子说："跟有仁德的人住在一起，才是好的。如果你选择的住处不是跟有仁德的人在一起，怎么能说你是明智的呢？"',
+                    'default': '本章译文待添加'
+                },
+                'zhu': {
+                    'weizheng': '政之为言正也，所以正人之不正也。德之为言得也，得于心而不失也。北辰，北极，天之枢也。居其所，不动也。共，音拱，环绕也。言众星四面旋绕而归向之也。为政以德，则无为而天下归之，其象如此。',
+                    'bayi': '佾，舞列也。天子八，诸侯六，大夫四，士二。每佾人数，如其佾数。或曰：每佾八人。未详孰是。季氏，鲁大夫季孙氏也。忍，容忍也。季氏以大夫而僭用天子之礼乐，孔子言其此事尚忍为之，则何事不可忍为。或曰：忍，忍心也。',
+                    'liren': '里有仁厚之俗为美。择里而不居于是焉，则失其是非之本心，而不得为有知矣。',
+                    'default': '本章注释待添加'
+                },
+                'other': {
+                    'weizheng': '孔子说："以道德原则治理国家，就像北极星一样处在一定的位置，所有的星辰都会围绕着它。"',
+                    'bayi': '孔子评论季氏说："他用天子才能用的八佾在庭院中奏乐舞蹈，这样的事都能狠心做得出来，还有什么事不能狠心做出来呢？"',
+                    'liren': '孔子说："居住在有仁厚风气的地方才好。选择住处而不选择有仁厚风气的地方，怎么能说是明智呢？"',
+                    'default': '本章其他译文待添加'
+                }
+            };
+            return translations[type][chapterId] || translations[type]['default'];
+        }
+        
+        // 获取章节现代应用
+        function getChapterApplication(chapterId) {
+            const applications = {
+                'weizheng': '本章强调以德治国的重要性。在现代社会，领导者应当注重自身的道德修养，以道德的力量影响和引导他人，而不是仅仅依靠法律和制度的约束。',
+                'bayi': '本章讨论礼乐制度的重要性。在现代社会，我们仍然需要遵守社会规范和道德准则，尊重他人的权利和尊严。',
+                'liren': '本章强调居住环境对个人修养的影响。在现代社会，我们应该选择良好的生活和工作环境，与有道德、有修养的人为伍。',
+                'default': '本章在现代生活中的应用价值待探讨'
+            };
+            return applications[chapterId] || applications['default'];
+        }
+        
+        // 获取章节应用案例
+        function getChapterExample(chapterId) {
+            const examples = {
+                'weizheng': '某公司的 CEO 注重自身的道德修养，以身作则，关爱员工，公司的凝聚力和 productivity 得到了显著提升。',
+                'bayi': '在一个团队中，成员们遵守团队规则，尊重彼此的意见，营造了和谐的工作氛围。',
+                'liren': '小明选择与积极向上、有道德修养的朋友交往，自己也变得更加优秀。',
+                'default': '相关应用案例待补充'
+            };
+            return examples[chapterId] || examples['default'];
+        }
+        
+        // 读书笔记功能
+        let notes = JSON.parse(localStorage.getItem('lunyuNotes')) || {};
+        
+        // 加载章节笔记
+        function loadChapterNote(chapterId) {
+            const noteTextarea = document.getElementById('chapter-note');
+            const savedNotesContainer = document.getElementById('saved-notes');
+            
+            // 清空之前的内容
+            noteTextarea.value = '';
+            savedNotesContainer.innerHTML = '';
+            
+            // 如果有该章节的笔记，显示出来
+            if (notes[chapterId]) {
+                noteTextarea.value = notes[chapterId].content || '';
+                
+                // 显示保存时间
+                const noteItem = document.createElement('div');
+                noteItem.className = 'bg-secondary bg-opacity-20 p-3 rounded-md text-sm';
+                noteItem.innerHTML = `
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-medium">上次编辑:</span>
+                        <span class="text-gray-600">${notes[chapterId].timestamp}</span>
+                    </div>
+                `;
+                savedNotesContainer.appendChild(noteItem);
+            }
+        }
+        
+        // 保存笔记按钮点击事件
+        document.getElementById('save-note-btn').addEventListener('click', function() {
+            const currentChapter = document.getElementById('chapter-title').textContent;
+            const chapterId = Object.keys(chapterTitles).find(key => chapterTitles[key] === currentChapter);
+            const noteContent = document.getElementById('chapter-note').value.trim();
+            
+            if (!noteContent) {
+                alert('请输入笔记内容');
+                return;
+            }
+            
+            // 保存笔记到本地存储
+            notes[chapterId] = {
+                content: noteContent,
+                timestamp: new Date().toLocaleString(),
+                chapter: currentChapter
+            };
+            
+            localStorage.setItem('lunyuNotes', JSON.stringify(notes));
+            
+            // 更新笔记显示
+            loadChapterNote(chapterId);
+            
+            alert('笔记已保存');
+        });
+        
+        // 下载笔记按钮点击事件
+        document.getElementById('download-notes-btn').addEventListener('click', function() {
+            if (Object.keys(notes).length === 0) {
+                alert('暂无笔记可下载');
+                return;
+            }
+            
+            // 生成笔记内容
+            let notesContent = '论语学习笔记\n\n';
+            
+            Object.values(notes).forEach(note => {
+                notesContent += `${note.chapter}\n`;
+                notesContent += `编辑时间: ${note.timestamp}\n\n`;
+                notesContent += `${note.content}\n\n${'='.repeat(50)}\n\n`;
+            });
+            
+            // 创建下载链接
+            const blob = new Blob([notesContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `论语笔记_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+        
+        // 搜索功能
+        function searchChapters(keyword) {
+            const chapterButtons = document.querySelectorAll('.chapter-btn');
+            
+            if (!keyword) {
+                // 如果关键词为空，显示所有章节
+                chapterButtons.forEach(button => {
+                    button.style.display = 'flex';
+                });
+                return;
+            }
+            
+            let hasMatch = false;
+            const keywordLower = keyword.toLowerCase();
+            
+            chapterButtons.forEach(button => {
+                const chapterName = button.querySelector('span').textContent;
+                const chapterId = button.getAttribute('data-chapter');
+                
+                // 检查章节标题
+                let match = chapterName.toLowerCase().includes(keywordLower);
+                
+                // 检查原文内容
+                if (!match) {
+                    const chapterText = getChapterFullText(chapterId);
+                    if (chapterText.toLowerCase().includes(keywordLower)) {
+                        match = true;
+                    }
+                }
+                
+                if (match) {
+                    button.style.display = 'flex';
+                    hasMatch = true;
+                } else {
+                    button.style.display = 'none';
+                }
+            });
+            
+            if (!hasMatch) {
+                alert('未找到匹配的章节');
+            }
+        }
+        
+        // 顶部搜索框
+        document.getElementById('top-search-btn').addEventListener('click', function() {
+            const keyword = document.getElementById('top-search').value.trim();
+            searchChapters(keyword);
+        });
+        
+        // 顶部搜索框回车事件
+        document.getElementById('top-search').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const keyword = this.value.trim();
+                searchChapters(keyword);
+            }
+        });
+        
+        // 获取章节完整原文
+        function getChapterFullText(chapterId) {
+            const fullTexts = {
+                'xueer': `子曰："学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知而不愠，不亦君子乎？"
+有子曰："其为人也孝弟，而好犯上者，鲜矣；不好犯上而好作乱者，未之有也。君子务本，本立而道生。孝弟也者，其为仁之本与！"
+子曰："巧言令色，鲜矣仁！"
+曾子曰："吾日三省吾身：为人谋而不忠乎？与朋友交而不信乎？传不习乎？"
+子曰："道千乘之国，敬事而信，节用而爱人，使民以时。"
+子曰："弟子入则孝，出则弟，谨而信，泛爱众，而亲仁，行有余力，则以学文。"
+子夏曰："贤贤易色；事父母，能竭其力；事君，能致其身；与朋友交，言而有信。虽曰未学，吾必谓之学矣。"
+子曰："君子不重则不威，学则不固。主忠信，无友不如己者，过，则勿惮改。"
+曾子曰："慎终追远，民德归厚矣。"
+子禽问于子贡曰："夫子至于是邦也，必闻其政，求之与，抑与之与？"子贡曰："夫子温、良、恭、俭、让以得之。夫子之求之也，其诸异乎人之求之与？"
+子曰："父在，观其志；父没，观其行；三年无改于父之道，可谓孝矣。"
+有子曰："礼之用，和为贵。先王之道，斯为美。小大由之，有所不行。知和而和，不以礼节之，亦不可行也。"
+有子曰："信近于义，言可复也。恭近于礼，远耻辱也。因不失其亲，亦可宗也。"
+子曰："君子食无求饱，居无求安，敏于事而慎于言，就有道而正焉，可谓好学也已。"
+子贡曰："贫而无谄，富而无骄，何如？"子曰："可也。未若贫而乐，富而好礼者也。"子贡曰："《诗》云：'如切如磋，如琢如磨'，其斯之谓与？"子曰："赐也，始可与言《诗》已矣，告诸往而知来者。"
+子曰："不患人之不己知，患不知人也。"`,
+                'weizheng': `子曰："为政以德，譬如北辰，居其所而众星共之。"
+子曰："《诗》三百，一言以蔽之，曰：'思无邪。'"
+子曰："道之以政，齐之以刑，民免而无耻。道之以德，齐之以礼，有耻且格。"
+子曰："吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲，不逾矩。"
+孟懿子问孝。子曰："无违。"
+樊迟御。子告之曰："孟孙问孝于我，我对曰，无违。"樊迟曰："何谓也？"
+子曰："生，事之以礼；死，葬之以礼，祭之以礼。"
+孟武伯问孝。子曰："父母唯其疾之忧。"
+子游问孝。子曰："今之孝者，是谓能养。至于犬马，皆能有养。不敬，何以别乎？"
+子夏问孝。子曰："色难。有事，弟子服其劳；有酒食，先生馔，曾是以为孝乎？"
+子曰："吾与回言终日，不违，如愚。退而省其私，亦足以发，回也不愚。"
+子曰："视其所以，观其所由，察其所安，人焉廋哉？人焉廋哉？"
+子曰："温故而知新，可以为师矣。"
+子曰："君子不器。"
+子贡问君子。子曰："先行其言，而后从之。"
+子曰："君子周而不比，小人比而不周。"
+子曰："学而不思，则罔；思而不学，则殆。"
+子曰："攻乎异端，斯害也已。"
+子曰："由，诲女知之乎？知之为知之，不知为不知，是知也！"
+子张学干禄。子曰："多闻阙疑，慎言其余，则寡尤；多见阙殆，慎行其余，则寡悔。言寡尤，行寡悔，禄在其中矣。"
+哀公问曰："何为则民服？"孔子对曰："举直错诸枉，则民服；举枉错诸直，则民不服。"
+季康子问："使民敬忠以劝，如之何？"子曰："临之以庄，则敬；孝慈，则忠；举善而教不能，则劝。"
+或谓孔子曰："子奚不为政？"子曰："《书》云：'孝乎惟孝，友于兄弟，施于有政。'是亦为政，奚其为为政？"
+子曰："人而无信，不知其可也。大车无輗，小车无軏，其何以行之哉？"
+子张问："十世可知也？"子曰："殷因于夏礼，所损益，可知也；周因于殷礼，所损益，可知也。其或继周者，虽百世，可知也。"
+子曰："非其鬼而祭之，谄也。见义不为，无勇也。"`,
+                'bayi': `孔子谓季氏："八佾舞于庭，是可忍也，孰不可忍也？"
+三家者以雍徹。子曰："相维辟公，天子穆穆，奚取于三家之堂？"
+子曰："人而不仁，如礼何？人而不仁，如乐何？"
+林放问礼之本。子曰："大哉问！礼，与其奢也，宁俭；丧，与其易也，宁戚。"
+子曰："夷狄之有君，不如诸夏之亡也。"
+季氏旅於泰山。子谓冉有曰："汝不能救与？"对曰："不能。"子曰："呜呼，曾谓泰山不如林放乎？"
+子曰："君子无所争，必也射乎！揖让而升，下而饮，其争也君子。"
+子夏问曰："巧笑倩兮，美目盻兮，素以为绚兮，何谓也？"子曰："绘事后素。"曰："礼后乎？"子曰："起予者商也，始可与言诗已矣。"
+子曰："夏礼，吾能言之，杞不足徴；殷礼，吾能言之，宋不足徴也。文献不足故也，足则吾能徴之矣。"
+子曰："禘自既灌而往者，吾不欲观之矣。"
+或问禘之说，子曰："不知也。知其说者之于天下也，其如示诸斯乎。"指其掌。
+祭如在，祭神如神在。子曰："吾不与祭，如不祭。"
+王孙贾问曰："与其媚于奥，宁媚于灶，何谓也？"子曰："不然。获罪于天，无所祷也。"
+子曰："周监于二代，郁郁乎文哉！吾从周！"
+子入太庙，每事问。或曰："孰谓鄹人之子知礼乎？入太庙，每事问。"子闻之，曰："是礼也。"
+子曰："射不主皮，为力不同科，古之道也。"
+子贡欲去告朔之餼羊。子曰："赐也，汝爱其羊，我爱其礼。"
+子曰："事君尽礼，人以为谄。"
+定公问："君使臣，臣事君，如之何？"孔子对曰："君使臣以礼，臣事君以忠。"
+子曰："关雎，乐而不淫，哀而不伤。"
+哀公问社于宰我，宰我对曰："夏后氏以松，殷人以柏，周人以栗，曰使民战栗也。"子闻之，曰："成事不说，遂事不谏，既往不咎。"
+子曰："管仲之器小哉！"或曰："管仲俭乎？"曰："管氏有三归，官事不摄，焉得俭乎？"曰："然则管仲知礼乎？"曰："邦君树塞门，管氏亦树塞门。邦君为两君之好，有反坫，管氏亦有反坫。管氏而知礼，孰不知礼？"
+子语鲁太师乐，曰："乐其可知已也：始作，翕如也。从之，纯如也，皦如也，绎如也，以成。"
+仪封人请见，曰："君子之至于斯者，吾未尝不得见也。"从者见之，出曰："二三子何患於丧乎？天下之无道久矣，天将以夫子为木鐸。"
+子谓韶："尽美矣，又尽善也。"谓武："尽美矣，未尽善也。"
+子曰："居上不宽，为礼不敬，临丧不哀，吾何以观之哉？"`,
+                'liren': '子曰："里仁为美。择不处仁，焉得知？"',
+                'gongyechang': '子谓公冶长，"可妻也。虽在缧绁之中，非其罪也。"以其子妻之。',
+                'yongye': '子曰："雍也可使南面。"',
+                'shuer': '子曰："述而不作，信而好古，窃比于我老彭。"',
+                'taibo': '子曰："泰伯，其可谓至德也已矣。三以天下让，民无得而称焉。"',
+                'zihan': '子罕言利与命与仁。',
+                'xiangdang': '孔子于乡党，恂恂如也，似不能言者。其在宗庙朝廷，便便言，唯谨尔。',
+                'xianjin': '子曰："先进于礼乐，野人也；后进于礼乐，君子也。如用之，则吾从先进。"',
+                'yanyuan': '颜渊问仁。子曰："克己复礼为仁。一日克己复礼，天下归仁焉。为仁由己，而由人乎哉？"',
+                'zilu': '子路问政。子曰："先之劳之。"请益。曰："无倦。"',
+                'xianwen': '宪问耻。子曰："邦有道，谷；邦无道，谷，耻也。"',
+                'weilinggong': '卫灵公问陈于孔子。孔子对曰："俎豆之事，则尝闻之矣；军旅之事，未之学也。"明日遂行。',
+                'jishi': '季氏将伐颛臾。冉有、季路见于孔子曰："季氏将有事于颛臾。"',
+                'yanghuo': '阳货欲见孔子，孔子不见，归孔子豚。孔子时其亡也，而往拜之，遇诸涂。',
+                'weizi': '微子去之，箕子为之奴，比干谏而死。孔子曰："殷有三仁焉。"',
+                'zizhang': '子张曰："士见危致命，见得思义，祭思敬，丧思哀，其可已矣。"',
+                'yaoyue': '尧曰："咨！尔舜！天之历数在尔躬，允执其中。四海困穷，天禄永终。"舜亦以命禹。'
+            };
+            return fullTexts[chapterId] || '本章内容待添加...';
+        }
+        
+        // 获取章节第一句原文（用于简化显示）
+        function getChapterFirstVerse(chapterId) {
+            const fullText = getChapterFullText(chapterId);
+            // 返回第一段内容
+            return fullText.split('\n')[0];
+        }
+        
+        // 获取章节译文
+        function getChapterTranslation(chapterId, type, verseNumber = 1) {
+            // 为政篇译文
+            const weizhengTranslations = {
+                'yang': [
+                    '孔子说："用道德来治理国政，自己便会像北极星一般，在一定的位置上，别的星辰都环绕着它。"',
+                    '孔子说："《诗经》三百篇，用一句话来概括，就是思想纯正。"',
+                    '孔子说："用政法来诱导他们，使用刑罚来整顿他们，人民只是暂时地免于罪过，却没有廉耻之心。如果用道德来诱导他们，使用礼教来整顿他们，人民不但有廉耻之心，而且人心归服。"',
+                    '孔子说："我十五岁，有志于学问；三十岁，[懂礼仪，]说话做事都有把握；四十岁，[掌握了各种知识，]不致迷惑；五十岁，得知天命；六十岁，一听别人言语，便可以分别真假，判明是非；到了七十岁，便随心所欲，任何念头都不会越出规矩。"',
+                    '孟懿子问什么是孝。孔子说："不要违背礼节。"',
+                    '樊迟替孔子赶车，孔子便告诉他说："孟孙向我问孝，我回答说，不要违背礼节。"樊迟道："这是什么意思？"孔子道："父母活着，依规定的礼节侍奉他们；死了，依规定的礼节埋葬他们，祭祀他们。"',
+                    '孟武伯向孔子问孝道。孔子道："做爹娘的的只是为孝子的疾病发愁。"',
+                    '子游问孝道。孔子说："现在的所谓孝，就是说能够养活爹娘便行了。至于狗马都能够得到饲养；若不存心严肃地孝顺父母，那养活爹娘和饲养狗马怎样去分别呢？"',
+                    '子夏问孝道。孔子说："儿子在父母前经常有愉悦的容色，是件难事。有事情，年轻人效劳；有酒有肴，年长的人吃喝，难道这竟可认为是孝么？"',
+                    '孔子说："我整天和颜回讲学，他从不提反对意见和疑问，像个蠢人。等他退回去自己研究，却也能发挥，可见颜回并不愚蠢。"',
+                    '孔子说："考查一个人所结交的朋友；观察他为达到一定目的所采用的方式；了解他的心情，安于什么，不安于什么。那么，这个人怎样隐藏得住呢？这个人怎样隐藏得住呢？"',
+                    '孔子说："在温习旧知识时，能有新体会、新发现，就可以做老师了。"',
+                    '孔子说："君子不像器皿一般，[只有一定的用途。]"',
+                    '子贡问怎样才能做一个君子。孔子道："对于你要说的话，先实行了，再说出来，[这就够说是一个君子了。]"',
+                    '孔子说："君子是团结，而不是勾结；小人是勾结，而不是团结。"',
+                    '孔子说："只是读书，却不思考，就会受骗；只是空想，却不读书，就会缺乏信心。"',
+                    '孔子说："批判那些不正确的议论，祸害就可以消灭了。"',
+                    '孔子说："由，教给你对待知或不知的正确态度吧！知道就是知道，不知道就是不知道，这就是聪明智慧。"',
+                    '子张问如何去求得官职。孔子道："多听，有怀疑的地方，加以保留；其余足以自信的部分，谨慎地说出，就能减少错误。多看，有怀疑的地方，加以保留；其余足以自信的部分，谨慎地实行，就能减少懊悔。言语的错误少，行动的懊悔少，官职俸禄就在这里面了。"',
+                    '鲁哀公问道："要做些什么才能使百姓服从呢？"孔子答道："把正直的人提拔出来，放在邪曲的人之上，百姓就服从了；若是把邪曲的人提拔出来，放在正直的人之上，百姓就不会服从。"',
+                    '季康子问道："要使人民严肃认真，尽心竭力和互相勉励，应该怎么办呢？"孔子说："你对待人民的事情严肃认真，他们对待你的政令也会严肃认真；你孝顺父母，慈爱幼小，他们就会对你尽心竭力；你提拔好人，教育能力弱的人，他们就会互相勉励。"',
+                    '有人对孔子道："你为什么不参与政治？"孔子道："《尚书》上说：\'孝呀，只有孝顺父母，友爱兄弟，把这种风气影响到政治上去。\'这也就是参与政治了呀，为什么定要做官才算参与政治呢？"',
+                    '孔子说："一个人假若没有信用，那不知道他怎么可以立身处世。譬如大车子没有安横木的輗，小车子没有安横木的軏，如何能走呢？"',
+                    '子张问："十代以后的社会制度和道德规范可以知道吗？"孔子说："殷朝沿袭夏朝的制度，所废除的，所增加的，是可以知道的；周朝沿袭殷朝的制度，所废除的，所增加的，也是可以知道的。那么，假定有继承周朝而当政的人，就是以后一百代，也是可以预先知道的。"',
+                    '孔子说："不是自己应该祭祀的鬼神，却去祭祀他，这是献媚。眼见应该挺身而出的事情，却袖手旁观，这是怯懦。"'
+                ],
+                'zhu': [
+                    '政之为言正也，所以正人之不正也。德之为言得也，得于心而不失也。北辰，北极，天之枢也。居其所，不动也。共，拱也，言众星四面旋绕而归向之也。为政以德，则无为而天下归之，其象如此。',
+                    '《诗》三百十一篇，言三百者，举大数也。蔽，犹盖也。"思无邪"，《鲁颂·駉》篇之辞。凡《诗》之言，善者可以感发人之善心，恶者可以惩创人之逸志，其用归于使人得其情性之正而已。然其言微婉，且或各因一事而发，求其直指全体，则未有若此之明且尽者。故夫子言《诗》三百篇，而惟此一言足以尽其义，盖示人之意亦深切矣。',
+                    '道，犹引导，谓先之也。政，谓法制禁令也。齐，所以一之也。刑，谓刑罚也。免而无耻，谓苟免刑罚而无所羞愧，盖虽不敢为恶，而为恶之心未尝亡也。礼，谓制度品节也。格，至也，言得其道而至善也。愚谓政者，为治之具。刑者，辅治之法。德、礼则所以出治之本，而德又礼之本也。此其相为终始，虽不可以偏废，然政、刑能使民远罪而已，德、礼之效，则有以使民日迁善而不自知。故治民者不可徒恃其末，又当深探其本也。',
+                    '立，能自立于斯道也。不惑，则无所疑矣。知天命，穷理尽性也。耳顺，所闻皆通也。从心所欲不逾矩，则不勉而中矣。程子曰："孔子生而知之也，言亦由学而至，所以勉进后人也。立，能自立于斯道也。不惑，则无所疑矣。知天命，穷理尽性也。耳顺，所闻皆通也。从心所欲不逾矩，则不勉而中矣。"又曰："孔子自言其进德之序如此者，圣人未必然，但为学者立法，使之盈科而后进，成章而后达耳。"胡氏曰："圣人之教亦多术，然其要，使人不失其本心而已。欲得此心者，惟志乎圣人所示之学，循其序而进焉。至于一疵不存、万理明尽之后，则其日用之间，本心莹然，随所意欲，莫非至理。盖心即体，欲即用，体即道，用即义，声为律而身为度矣。"又曰："圣人言此，一以示学者当优游涵泳，不可躐等而进；二以示学者当日就月将，不可半途而废也。"愚谓圣人生知安行，固无积累之渐，然其心未尝自谓已至此也。是其日用之间，必有独觉其进而人不及知者。故因其近似以自名，欲学者以是为则而自勉，非心实自圣而姑为是退托也。后凡言谦辞之属，意皆放此。',
+                    '无违，谓不背于理。',
+                    '生，谓父母存时。事，谓事奉之。葬，谓葬埋之。祭，谓祭祀之。礼，即理之节文也。人之事亲，自始至终，一于礼而不苟，其尊亲也至矣。是时三家僭礼，故夫子以是警之。然语意浑然，又若不专为三家发者，所以为圣人之言也。',
+                    '武伯，懿子之子，名彘。言父母爱子之心，无所不至，惟恐其有疾病，常以为忧也。人子体此，而以父母之心为心，则凡所以守其身者，自不容于不谨矣，岂不可以为孝乎？旧说，人子能使父母不以其陷于不义为忧，而独以其疾为忧，乃可谓孝。亦通。',
+                    '子游，孔子弟子，姓言，名偃。养，谓饮食供奉也。犬马待人而食，亦若养然。言人畜犬马，皆能有以养之，若能养其亲而敬不至，则与养犬马者何异？甚言不敬之罪，所以深警之也。',
+                    '子夏，孔子弟子，姓卜，名商。色难，谓事亲之际，惟色为难也。食，饭也。先生，父兄也。馔，饮食之也。曾，犹尝也。养亲之道，无他务，惟致其色为难耳。盖孝子之有深爱者，必有和气；有和气者，必有愉色；有愉色者，必有婉容；故事亲之际，惟色为难耳，服劳奉养，未足为孝也。旧说，承顺父母之色为难。亦通。',
+                    '回，孔子弟子，姓颜，字子渊。不违者，意不相背，有听受而无问难也。退，谓退归其家。省，察也。私，谓燕居独处，非进见请问之时。发，谓发明所言之理。愚谓颜子深潜淳粹，其于圣人体段已具。其闻夫子之言，默识心融，触处洞然，自有条理。故终日言，但见其不违如愚人。及退省其私，则见其日用动静语默之间，皆足以发明夫子之道，坦然由之而无疑，然后知其不愚也。',
+                    '以，为也。由，从也。安，所乐也。廋，匿也。程子曰："在己者能知言穷理，则能以此察人如圣人也。"又曰："知人之道四：一曰，视其所为主之事；二曰，观其所由之方；三曰，察其所安之善；四曰，观其所习之业。"愚谓必如此观人，然后其情伪始可得而见。然圣人之所谓观人者，固不止于此，但此三事，亦皆人所易见者耳。',
+                    '温，寻绎也。故者，旧所闻。新者，今所得。言学能时习旧闻，而每有新得，则所学在我，而其应不穷，故可以为人师。若夫记问之学，则无得于心，而所知有限，故《学记》讥其"不足以为人师"，正与此意互相发也。',
+                    '器者，各适其用而不能相通。成德之士，体无不具，故用无不周，非特为一才一艺而已。',
+                    '子贡，孔子弟子，姓端木，名赐。先行其言而后从之，只是先实践所要说的话，然后再说出来。',
+                    '周，普遍也。比，偏党也。皆与人亲厚之意，但周则大公而不私，比则私昵而不公。',
+                    '不求诸心，故昏而无得。不习其事，故危而不安。程子曰："博学、审问、慎思、明辨、笃行五者，废其一，非学也。"',
+                    '异端，非圣人之道，而别为一端，如杨、墨是也。其率天下至于无父无君，专治而欲精之，为害甚矣！程子曰："佛氏之言，比之杨、墨，尤为近理，所以其害为尤甚。学者当如淫声美色以远之，不尔，则骎骎然入于其中矣。"',
+                    '由，孔子弟子，姓仲，字子路。女，音汝。知之为知之，不知为不知，此孔子教人以为知之之道也。盖学者未知而求知，已知而求明，皆当如此。若意以为可知，而心以为未必可信；意以为可疑，而心以为未必可知：皆不能免于惑也。程子曰："知之必明，信之必笃，行之必果，是之谓知。"又曰："人苟以不知为不知，何所不学？"',
+                    '子张，孔子弟子，姓颛孙，名师。干，求也。禄，仕者之奉也。多闻阙疑，慎言其余，则寡尤；多见阙殆，慎行其余，则寡悔。言寡尤，行寡悔，禄在其中矣。',
+                    '哀公，鲁君，名蒋。举，进用也。直，谓正直之人。错，舍置也。枉，谓邪枉之人。举直而错诸枉，则是进贤退不肖，所以劝善而惩恶也，故民服。',
+                    '季康子，鲁大夫，名肥。临，临民也。庄，端庄也。临之以庄，则民敬于己。孝慈，则民忠于己。举善而教不能，则民相劝于善。',
+                    '《书》，《周书·君陈》篇。孝乎惟孝，友于兄弟，施于有政。是亦为政，奚其为为政？',
+                    '信，诚也。輗，大车辕端横木，以缚轭驾牛者。軏，小车辕端上曲，钩衡以驾马者。大车，谓平地任载之车。小车，谓田车、兵车、乘车。人而无信，则所言皆妄，人谁信之？何所行之哉？',
+                    '子张，孔子弟子，姓颛孙，名师。十世，谓三王、五帝、夏、商、周也。因，因袭也。礼，谓制度品节也。损益，谓增损前代礼制，以就今时之宜。',
+                    '非其鬼而祭之，谄也。见义不为，无勇也。'
+                ],
+                'other': [
+                    '孔子说："以道德原则治理国家，就像北极星一样处在一定的位置，所有的星辰都会围绕着它。"',
+                    '孔子说："《诗经》三百篇，可以用一句话来概括它，就是思想纯正。"',
+                    '孔子说："用政令来引导百姓，用刑法来整治百姓，百姓虽能避免犯罪，但没有羞耻之心。用道德引导百姓，用礼教来整治百姓，百姓不仅有羞耻之心，而且会心悦诚服。"',
+                    '孔子说："我十五岁立志于学习；三十岁能够自立；四十岁能不被外界事物所迷惑；五十岁懂得了天命；六十岁能正确对待各种言论，不觉得不顺；七十岁能随心所欲，而不越出规矩。"',
+                    '孟懿子问什么是孝，孔子说："孝就是不要违背礼。"',
+                    '樊迟给孔子驾车，孔子告诉他说："孟孙向我问孝，我回答他说不要违背礼。"樊迟说："不要违背礼是什么意思呢？"孔子说："父母活着的时候，要按礼侍奉他们；父母去世后，要按礼埋葬他们、祭祀他们。"',
+                    '孟武伯向孔子问孝道。孔子道："做爹娘的的只是为孝子的疾病发愁。"',
+                    '子游问孝道。孔子说："现在的所谓孝，就是说能够养活爹娘便行了。至于狗马都能够得到饲养；若不存心严肃地孝顺父母，那养活爹娘和饲养狗马怎样去分别呢？"',
+                    '子夏问孝道。孔子说："儿子在父母前经常有愉悦的容色，是件难事。有事情，年轻人效劳；有酒有肴，年长的人吃喝，难道这竟可认为是孝么？"',
+                    '孔子说："我整天和颜回讲学，他从不提反对意见和疑问，像个蠢人。等他退回去自己研究，却也能发挥，可见颜回并不愚蠢。"',
+                    '孔子说："考查一个人所结交的朋友；观察他为达到一定目的所采用的方式；了解他的心情，安于什么，不安于什么。那么，这个人怎样隐藏得住呢？这个人怎样隐藏得住呢？"',
+                    '孔子说："在温习旧知识时，能有新体会、新发现，就可以做老师了。"',
+                    '孔子说："君子不像器皿一般，[只有一定的用途。]"',
+                    '子贡问怎样才能做一个君子。孔子道："对于你要说的话，先实行了，再说出来，[这就够说是一个君子了。]"',
+                    '孔子说："君子是团结，而不是勾结；小人是勾结，而不是团结。"',
+                    '孔子说："只是读书，却不思考，就会受骗；只是空想，却不读书，就会缺乏信心。"',
+                    '孔子说："批判那些不正确的议论，祸害就可以消灭了。"',
+                    '孔子说："由，教给你对待知或不知的正确态度吧！知道就是知道，不知道就是不知道，这就是聪明智慧。"',
+                    '子张问如何去求得官职。孔子道："多听，有怀疑的地方，加以保留；其余足以自信的部分，谨慎地说出，就能减少错误。多看，有怀疑的地方，加以保留；其余足以自信的部分，谨慎地实行，就能减少懊悔。言语的错误少，行动的懊悔少，官职俸禄就在这里面了。"',
+                    '鲁哀公问道："要做些什么才能使百姓服从呢？"孔子答道："把正直的人提拔出来，放在邪曲的人之上，百姓就服从了；若是把邪曲的人提拔出来，放在正直的人之上，百姓就不会服从。"',
+                    '季康子问道："要使人民严肃认真，尽心竭力和互相勉励，应该怎么办呢？"孔子说："你对待人民的事情严肃认真，他们对待你的政令也会严肃认真；你孝顺父母，慈爱幼小，他们就会对你尽心竭力；你提拔好人，教育能力弱的人，他们就会互相勉励。"',
+                    '有人对孔子道："你为什么不参与政治？"孔子道："《尚书》上说：\'孝呀，只有孝顺父母，友爱兄弟，把这种风气影响到政治上去。\'这也就是参与政治了呀，为什么定要做官才算参与政治呢？"',
+                    '孔子说："一个人假若没有信用，那不知道他怎么可以立身处世。譬如大车子没有安横木的輗，小车子没有安横木的軏，如何能走呢？"',
+                    '子张问："十代以后的社会制度和道德规范可以知道吗？"孔子说："殷朝沿袭夏朝的制度，所废除的，所增加的，是可以知道的；周朝沿袭殷朝的制度，所废除的，所增加的，也是可以知道的。那么，假定有继承周朝而当政的人，就是以后一百代，也是可以预先知道的。"',
+                    '孔子说："不是自己应该祭祀的鬼神，却去祭祀他，这是献媚。眼见应该挺身而出的事情，却袖手旁观，这是怯懦。"'
+                ]
+            };
+            
+            // 八佾篇译文
+            const bayiTranslations = {
+                'yang': [
+                    '孔子谈到季氏，说："他用六十四人在庭院中奏乐舞蹈，这都可以狠心做出来，什么事不可以狠心做出来呢？"',
+                    '仲孙、叔孙、季孙三家，当他们祭祀祖先时，唱着《雍》这篇诗来撤除祭品。孔子说："《雍》诗上有这样的话：\'助祭的是诸侯，天子严肃静穆地在那里主祭。\'这两句话，用在三家祭祖的大厅上，在意义上取它哪一点呢？"',
+                    '孔子说："作为一个人，却不仁，怎样来对待礼仪制度呢？作为一个人，却不仁，怎样来对待音乐呢？"',
+                    '林放问礼的本质。孔子说："你的问题意义重大呀！就一般礼仪说，与其铺张浪费，宁可朴素俭约；就丧礼说，与其仪文周到，宁可过度悲哀。"',
+                    '孔子说："文化落后的国家，即使有个君主，也不如中国没有君主。"',
+                    '季氏要去祭祀泰山。孔子对冉有说："你不能阻止吗？"冉有答道："不能。"孔子道："哎呀！竟可以说泰山之神还不及林放懂礼吗？"',
+                    '孔子说："君子没有什么可争的事情。如果有所争，一定是比箭吧！相互作揖然后登堂；射完后，走下堂来，彼此作揖喝酒。这种争，是君子的争。"',
+                    '子夏问道："美的笑容，酒涡微动；美的眼睛，黑白传神；洁白的底子上，画着花卉。这几句诗是什么意思？"孔子道："先有白底子，然后画花。"子夏道："那么，是不是礼乐的产生在仁义之后呢？"孔子道："卜商呀，你真是能启发我的人。现在可以同你讨论《诗经》了。"',
+                    '孔子说："夏代的礼，我能说出来，它的后代杞国不足以作证；殷代的礼，我能说出来，它的后代宋国不足以作证。这是他们的历史文件和贤者不够的缘故。若有足够的文件和贤者，我就可以引来作证了。"',
+                    '孔子说："禘祭的礼，从第一次献酒以后，我就不想看了。"',
+                    '有人向孔子请教关于禘祭的理论。孔子说："不知道。知道这种理论的人，对于治理天下，好像把东西放在这里一样容易罢。"一面说，一面指着自己的手掌。',
+                    '孔子祭祀祖先的时候，便好像祖先真在那里；祭神的时候，便好像神真在那里。孔子说："我若是不能亲自参加祭祀，是不请别人代理的。"',
+                    '王孙贾问道："与其巴结房屋西南角的神，宁可巴结灶君，这是什么意思？"孔子道："不是这样的；若是获罪于天，向什么神祷告都是没有用处的。"',
+                    '孔子说："周朝的礼仪制度是以夏、殷两代为根据，然后制定的，多么丰富多彩呀！我赞成周朝的制度。"',
+                    '孔子到了太庙，每件事都要问。有人便说："谁说鄹人的儿子懂得礼呢？他到了太庙，每件事都要问。"孔子听到了这话，便道："这正是礼呀。"',
+                    '孔子说："比箭，主要不是看是否射穿皮做的箭靶子，因为各人的气力大小不同。这是古时候的规矩。"',
+                    '子贡要把鲁国每月初一告祭祖庙的那只活羊去而不用。孔子道："赐呀！你爱惜那只羊，我爱惜那种礼。"',
+                    '孔子说："服事君主，一切依照礼节，别人却以为他在谄媚。"',
+                    '鲁定公问："君主使用臣下，臣下服事君主，该怎样？"孔子答道："君主应该依礼来使用臣下，臣下应该忠心地服事君主。"',
+                    '孔子说："《关雎》这篇诗，快乐而不放荡，悲哀而不痛苦。"',
+                    '鲁哀公向宰我问，作社主用什么木。宰我答道："夏代用松木，殷代用柏木，周代用栗木，意思是使人民战战栗栗。"孔子听到了这话，便道："已经做了的事不便再解释，已经完成的事不便再挽救，已经过去的事不便再追究。"',
+                    '孔子说："管仲的器量狭小得很呀！"有人便问："管仲节俭吗？"孔子道："他有三处豪华的公馆，他手下的人员，一人一职，从不兼差，如何能说是节俭呢？"那人又问："那么，管仲懂得礼吗？"孔子又道："国君宫门前立了一个塞门，管仲也立了个塞门；国君为了招待别国的君主，有放置酒杯的设备，管仲也有这样的设备。假若说管仲懂得礼，那还有谁不懂得礼呢？"',
+                    '孔子把演奏音乐的道理告诉鲁国的太师，说道："音乐，那是可以晓得的：开始演奏，翕翕地热烈；继续下去，纯纯地和谐，皦皦地清晰，绎绎地不绝，这样，然后完成。"',
+                    '仪这个地方的边防官请求见孔子，说道："所有到了这个地方的有道德学问的人，我从没有不和他见面的。"孔子的随行学生请求孔子接见他。他见了孔子出来以后，说道："你们这些人为什么要担心没有官位呢？天下黑暗已经很久了，上天将要以孔夫子作为人民的导师。"',
+                    '孔子论到《韶》，说："美极了，而且好极了。"论到《武》，说："美极了，却还不够好。"',
+                    '孔子说："居于统治地位而不宽宏大量，行礼的时候不严肃认真，参加丧礼的时候不悲哀，这种样子我怎么看得下去呢？"'
+                ],
+                'zhu': [
+                    '佾，舞列也。天子八佾，诸侯六，大夫四，士二。每佾人数，如其佾数。或曰："每佾八人。"未详孰是。季氏以大夫而僭用天子之礼乐，孔子言其此事尚忍为之，则何事不可忍为。或曰："忍，容忍也。"盖深疾之之辞。',
+                    '三家，鲁大夫孟孙、叔孙、季孙之家也。雍，《周颂》篇名。彻，祭毕而收其俎也。《雍》诗之辞云："相维辟公，天子穆穆。"相，助也。辟公，诸侯也。言天子穆穆，诸侯助祭也。今三家之堂而歌此诗，则是僭用天子之礼乐也。',
+                    '礼乐待人而后行，人不仁，则礼乐为虚器矣。虽欲用之，亦无如之何矣。',
+                    '林放，鲁人。大哉问！言其问之切而要也。礼贵得中，奢易则过于文，俭戚则不及而质，二者皆未合礼。然凡物之理，必先有质而后有文，则质乃礼之本也。',
+                    '夷狄，谓文化落后的国家。诸夏，中国也。亡，无也。言夷狄虽有君长，而无礼义；中国虽偶无君，而礼义不废。',
+                    '旅，祭名。泰山，五岳之尊。诸侯祭封内山川，季氏祭泰山，非礼也。冉有，孔子弟子，名求，时为季氏宰。救，谓救其陷于非礼。呜呼，叹辞。言泰山之神，必不享非礼之祭。林放尚知问礼，泰山之神反不如林放邪？',
+                    '君子恭逊，不与人争。必也射乎，谓射礼有争。揖让而升者，大射之礼，耦进三揖而后升堂也。下而饮，谓射毕揖降，以俟众耦皆降，胜者乃揖不胜者升，取觯立饮也。',
+                    '倩，好口辅也。盼，目黑白分也。素，粉地，画之质也。绚，采也，画之饰也。言人有此倩盼之美质，而又加以华采之饰，如有素地而加采色也。子夏疑其反言以见意，故问之。绘事，绘画之事也。后素，后于素也。《考工记》曰："绘画之事后素功。"谓先以粉地为质，而后施五采，犹人有美质，然后可加文饰。子夏因论诗而及礼，故孔子喜之，而谓其可以言诗。',
+                    '杞，夏之后。宋，殷之后。徵，证也。文献，典籍及贤人也。言二代之礼，我能言之，而二国不足取以为证，以其文献不足故也。若其足，则我能取之，以证吾言矣。',
+                    '禘，王者之大祭也。灌者，酌郁鬯于地，以降神也。鲁之君臣，当此之时，诚意未散，犹有可观，自此以后，则浸以懈怠而无足观矣。',
+                    '先王报本追远之意，莫深于禘，非仁孝诚敬之至，不足以与此，非或人之所及也。而不曰不能，而曰不知，犹言非我所能知也。示诸斯，指其掌也。言其理易见，如指掌然。',
+                    '祭如在，祭神如神在，言事死如事生，事亡如事存，孝子之心纯乎天理，无少间断也。吾不与祭如不祭，谓己当祭之时，或有故不得与，而使他人摄之，则不得致其如在之诚，故虽已祭，而此心缺然，如未尝祭也。',
+                    '王孙贾，卫大夫。奥，室西南隅，古人以为尊者所居。灶，灶神。媚，亲顺也。言有求于鬼神者，当谄其尊者，若王孙贾之问也。获罪于天，无所祷也，言但当顺理，非可以媚求而免也。',
+                    '监，视也。二代，夏、商也。郁郁，文盛貌。',
+                    '太庙，鲁周公庙。此盖孔子始仕之时，入而助祭也。或人讥其不知礼，孔子言我虽知之，然礼必有问，不敢以为知而不问，此乃礼也。',
+                    '射不主皮，谓射以中为贵，不必穿其皮也。为力不同科，言人力强弱不同等也。古之道也，言古者射礼如此。',
+                    '告朔之礼：古者天子于岁终，颁来岁十二月之朔于诸侯，诸侯受而藏之祖庙。月朔，则以特羊告庙，请而行之。子贡欲去其羊，废其礼也。爱其羊，谓其费财。爱其礼，谓其存礼。',
+                    '事君尽礼，谓事君之礼，无所不尽。人以为谄，谓人见其尽礼，而以为谄谀也。',
+                    '定公，鲁君，名宋。使臣以礼，谓待臣以礼。臣事君以忠，谓事君以忠。',
+                    '《关雎》，《周南》之首篇。淫者，乐之过而失其正者也。伤者，哀之过而害于和者也。《关雎》之诗，言后妃之德，宜配君子。忧在进贤，不淫其色。哀窈窕，思贤才，而无伤善之心焉。是则乐而不淫，哀而不伤也。',
+                    '宰我，孔子弟子，名予。社，土神。五代立社，各以其土所宜之木。战栗，恐惧貌。宰我又言周人以栗，欲使民战栗，是助其虐也。成事不说，遂事不谏，既往不咎，谓事已往者，不追咎也。',
+                    '管仲，齐大夫，名夷吾，相桓公霸诸侯。器小，言其不知圣贤大学之道，故局量褊浅、规模卑狭也。三归，台名，或曰："娶三姓女也。"官事不摄，谓各专一职，不兼官也。塞门，立屏于门也。反坫，反爵之坫，在两楹之间。皆诸侯之礼也。',
+                    '太师，乐官名。翕如，合也。从，音纵。纯如，和也。皦如，明也。绎如，相续不绝也。成，乐之一终也。',
+                    '仪，卫邑。封人，掌封疆之官。君子，谓当时贤者。从者，孔子之弟子。丧，谓失位去国。木铎，金口木舌，施政教时所振也。言乱极当治，天必将使夫子得位设教，不久失位也。',
+                    '韶，舜乐。武，武王乐。美者，声容之盛。善者，美之实也。舜绍尧致治，武王伐纣救民，其功一也，故其乐皆尽美。然舜之德，性之也，又以揖逊而有天下；武王之德，反之也，又以征诛而得天下，故其实有不同者。',
+                    '居上不宽，为礼不敬，临丧不哀，三者皆非诚也。',
+                ],
+                'other': [
+                    '孔子评论季氏说："他在家庙的庭院里使用了八佾的乐舞，这种僭越的事他都忍心做，还有什么事不忍心做呢？"',
+                    '孟孙、叔孙、季孙三家在祭祖时，唱着《雍》这首诗来撤除祭品。孔子说："《雍》诗中说：\'助祭的是诸侯，天子严肃静穆地在那里主祭。\'这两句话，用在三家祭祖的大厅上，在意义上取它哪一点呢？"',
+                    '孔子说："一个人如果没有仁德，他怎么能实行礼呢？一个人如果没有仁德，他怎么能运用乐呢？"',
+                    '林放问礼的本质。孔子说："你的问题意义重大呀！就一般礼仪说，与其铺张浪费，宁可朴素俭约；就丧礼说，与其仪文周到，宁可过度悲哀。"',
+                    '孔子说："文化落后的国家，即使有个君主，也不如中国没有君主。"',
+                    '季氏要去祭祀泰山。孔子对冉有说："你不能阻止吗？"冉有答道："不能。"孔子道："哎呀！竟可以说泰山之神还不及林放懂礼吗？"',
+                    '孔子说："君子没有什么可争的事情。如果有所争，一定是比箭吧！相互作揖然后登堂；射完后，走下堂来，彼此作揖喝酒。这种争，是君子的争。"',
+                    '子夏问道："美的笑容，酒涡微动；美的眼睛，黑白传神；洁白的底子上，画着花卉。这几句诗是什么意思？"孔子道："先有白底子，然后画花。"子夏道："那么，是不是礼乐的产生在仁义之后呢？"孔子道："卜商呀，你真是能启发我的人。现在可以同你讨论《诗经》了。"',
+                    '孔子说："夏代的礼，我能说出来，它的后代杞国不足以作证；殷代的礼，我能说出来，它的后代宋国不足以作证。这是他们的历史文件和贤者不够的缘故。若有足够的文件和贤者，我就可以引来作证了。"',
+                    '孔子说："禘祭的礼，从第一次献酒以后，我就不想看了。"',
+                    '有人向孔子请教关于禘祭的理论。孔子说："不知道。知道这种理论的人，对于治理天下，好像把东西放在这里一样容易罢。"一面说，一面指着自己的手掌。',
+                    '孔子祭祀祖先的时候，便好像祖先真在那里；祭神的时候，便好像神真在那里。孔子说："我若是不能亲自参加祭祀，是不请别人代理的。"',
+                    '王孙贾问道："与其巴结房屋西南角的神，宁可巴结灶君，这是什么意思？"孔子道："不是这样的；若是获罪于天，向什么神祷告都是没有用处的。"',
+                    '孔子说："周朝的礼仪制度是以夏、殷两代为根据，然后制定的，多么丰富多彩呀！我赞成周朝的制度。"',
+                    '孔子到了太庙，每件事都要问。有人便说："谁说鄹人的儿子懂得礼呢？他到了太庙，每件事都要问。"孔子听到了这话，便道："这正是礼呀。"',
+                    '孔子说："比箭，主要不是看是否射穿皮做的箭靶子，因为各人的气力大小不同。这是古时候的规矩。"',
+                    '子贡要把鲁国每月初一告祭祖庙的那只活羊去而不用。孔子道："赐呀！你爱惜那只羊，我爱惜那种礼。"',
+                    '孔子说："服事君主，一切依照礼节，别人却以为他在谄媚。"',
+                    '鲁定公问："君主使用臣下，臣下服事君主，该怎样？"孔子答道："君主应该依礼来使用臣下，臣下应该忠心地服事君主。"',
+                    '孔子说："《关雎》这篇诗，快乐而不放荡，悲哀而不痛苦。"',
+                    '鲁哀公向宰我问，作社主用什么木。宰我答道："夏代用松木，殷代用柏木，周代用栗木，意思是使人民战战栗栗。"孔子听到了这话，便道："已经做了的事不便再解释，已经完成的事不便再挽救，已经过去的事不便再追究。"',
+                    '孔子说："管仲的器量狭小得很呀！"有人便问："管仲节俭吗？"孔子道："他有三处豪华的公馆，他手下的人员，一人一职，从不兼差，如何能说是节俭呢？"那人又问："那么，管仲懂得礼吗？"孔子又道："国君宫门前立了一个塞门，管仲也立了个塞门；国君为了招待别国的君主，有放置酒杯的设备，管仲也有这样的设备。假若说管仲懂得礼，那还有谁不懂得礼呢？"',
+                    '孔子把演奏音乐的道理告诉鲁国的太师，说道："音乐，那是可以晓得的：开始演奏，翕翕地热烈；继续下去，纯纯地和谐，皦皦地清晰，绎绎地不绝，这样，然后完成。"',
+                    '仪这个地方的边防官请求见孔子，说道："所有到了这个地方的有道德学问的人，我从没有不和他见面的。"孔子的随行学生请求孔子接见他。他见了孔子出来以后，说道："你们这些人为什么要担心没有官位呢？天下黑暗已经很久了，上天将要以孔夫子作为人民的导师。"',
+                    '孔子论到《韶》，说："美极了，而且好极了。"论到《武》，说："美极了，却还不够好。"',
+                    '孔子说："居于统治地位而不宽宏大量，行礼的时候不严肃认真，参加丧礼的时候不悲哀，这种样子我怎么看得下去呢？"'
+                ]
+            };
+            
+            // 学而篇译文（完整）
+            const xueerTranslations = {
+                'yang': [
+                    '孔子说："学了，然后按一定的时间去实习它，不也高兴吗？有志同道合的人从远处来，不也快乐吗？人家不了解我，我却不怨恨，不也是君子吗？"',
+                    '有子说："他的为人，孝顺父母，敬爱兄长，却喜欢触犯上级，这种人是很少的；不喜欢触犯上级，却喜欢造反，这种人从来没有过。君子专心致力于基础工作，基础树立了，\'道\'就会产生。孝顺父母、敬爱兄长，这就是\'仁\'的基础吧！"',
+                    '孔子说："花言巧语，伪善的面貌，这种人，\'仁德\'是不会多的。"',
+                    '曾子说："我每天多次自己反省：替别人办事是否尽心竭力了呢？同朋友往来是否诚实呢？老师传授我的学业是否复习了呢？"',
+                    '孔子说："治理一个拥有一千辆兵车的国家，就要严谨认真地办理国家大事而又恪守信用，诚实无欺，节约财政开支而又爱护官吏臣僚，役使百姓要不误农时。"',
+                    '孔子说："后生小子，在父母跟前，就孝顺父母；离开自己的房子，便敬爱兄长；寡言少语，说则诚实可信；博爱大众，亲近有仁德的人。这样躬行实践之后，有剩余力量，就再去学习文献。"',
+                    '子夏说："对妻子，重品德，不重容貌；侍奉爹娘，能尽心竭力；服事君上，能豁出生命；同朋友交往，说话诚实守信。这种人，虽说没学习过，我一定说他已经学习过了。"',
+                    '孔子说："君子，如果不庄重，就没有威严；即使读书，所学的也不会巩固。要以忠和信两种道德为主。不要跟不如自己的人交朋友。有了过错，就不要怕改正。"',
+                    '曾子说："谨慎地对待父母的死亡，追念远代祖先，自然会导致老百姓归于忠厚老实了。"',
+                    '子禽向子贡问道："他老人家一到哪个国家，必然听得到那个国家的政事，求来的呢？还是别人自动告诉他的呢？"子贡道："他老人家是靠温和、善良、严肃、节俭、谦逊来取得的。他老人家获得的方法，或许与别人的求法不同吧？"',
+                    '孔子说："当他父亲活着，[因为他无权独立行动，]要观察他的志向；他父亲死了，要考察他的行为；若是他对他父亲的合理部分，长期地不加改变，可以说做到孝了。"',
+                    '有子说："礼的作用，以遇事都做得恰当为可贵。过去圣明君王的治理国家，可宝贵的地方就在这里；他们小事大事都按照这个原则去做。如有行不通的地方，便为恰当而求恰当，不用一定的规矩制度来加以节制，也是不可行的。"',
+                    '有子说："所守的约言符合义，说的话就能兑现。态度容貌的庄矜合于礼，就不致遭受侮辱。依靠关系深的人，也就可靠了。"',
+                    '孔子说："君子，吃食不要求饱足，居住不要求舒适，对工作勤劳敏捷，说话却谨慎，到有道的人那里去匡正自己，这样，可以说是好学了。"',
+                    '子贡说："贫穷却不巴结奉承，富裕却不骄傲自大，怎么样？"孔子说："可以了；但是还不如虽贫穷却乐于道，虽富裕却谦虚好礼哩。"子贡说："《诗经》上说：\'要像对待骨、角、象牙、玉石一样，切磋它，琢磨它\'，就是讲的这个意思吧？"孔子说："赐呀，现在可以同你讨论《诗经》了，告诉你一件，你能有所发挥，举一反三了。"',
+                    '孔子说："不忧虑别人不了解自己，只忧虑自己不了解别人。"'
+                ],
+                'zhu': [
+                    '学之为言效也。人性皆善，而觉有先后，后觉者必效先觉之所为，乃可以明善而复其初也。习，鸟数飞也。学之不已，如鸟数飞也。说，喜意也。既学而又时时习之，则所学者熟，而中心喜说，其进自不能已矣。朋，同类也。自远方来，则近者可知。君子，成德之名。愠，含怒意。君子之心，全体浑然，见理既明，故随事处而莫非义理之当然，虽至于人所不知而无闷，亦不失其为君子也。程子曰："乐由中出，说由外至。"又曰："学者，将以行之也。时习之，则所学者在我，故说。朋友来，则讲习益明，故乐。人不知而不愠，则为德者能成其德矣。"谢氏曰："时习者，无时而不习。坐如尸，坐时习也；立如齐，立时习也。"',
+                    '有子，孔子弟子，姓有，名若。孝弟，善事父母为孝，善事兄长为弟。犯上，谓干犯在上之人。鲜，少也。作乱，谓悖逆争斗。务，专力也。本，犹根也。仁者，爱之理，心之德也。为仁，犹曰行仁。与者，疑辞，谦退不敢质言也。言君子凡事专用力于根本，根本既立，则其道自生。若上文所谓孝弟，乃是为仁之本，学者务此，则仁道自此而生也。',
+                    '巧，好。令，善也。好其言，善其色，致饰于外，务以悦人，则人欲肆而本心之德亡矣。圣人辞不迫切，专言鲜，则绝无可知，学者所当深戒也。',
+                    '曾子，孔子弟子，姓曾，名参，字子舆。尽己之谓忠。以实之谓信。传，谓受之于师。习，谓熟之于己。曾子以此三者日省其身，有则改之，无则加勉，其自治诚切如此，可谓得为学之本矣。',
+                    '道，治也。千乘之国，诸侯之国也。敬事而信，敬其事而信于民也。节用而爱人，节用则不伤财，爱人则不伤民。使民以时，谓不妨农务。',
+                    '弟子，后生也。入则孝，出则弟，谨而信，泛爱众，而亲仁，行有余力，则以学文。',
+                    '子夏，孔子弟子，姓卜，名商。贤贤，谓以贤为贤，尊其所当尊也。易色，谓以好色之心好贤也。事父母能竭其力，事君能致其身，与朋友交言而有信，虽曰未学，吾必谓之学矣。',
+                    '君子不重则不威，学则不固。主忠信，无友不如己者，过则勿惮改。',
+                    '慎终，丧尽其礼。追远，祭尽其诚。民德归厚，谓下民化之，其德亦归于厚。',
+                    '子禽，姓陈，名亢。子贡，姓端木，名赐。皆孔子弟子。问，问于孔子也。抑，反语辞。温，和厚也。良，易直也。恭，庄敬也。俭，节制也。让，谦逊也。五者，夫子之盛德光辉接于人者也。其诸，语辞。',
+                    '父在，观其志；父没，观其行；三年无改于父之道，可谓孝矣。',
+                    '礼之用，和为贵。先王之道，斯为美。小大由之，有所不行。知和而和，不以礼节之，亦不可行也。',
+                    '信近于义，言可复也。恭近于礼，远耻辱也。因不失其亲，亦可宗也。',
+                    '君子食无求饱，居无求安，敏于事而慎于言，就有道而正焉，可谓好学也已。',
+                    '子贡曰："贫而无谄，富而无骄，何如？"子曰："可也。未若贫而乐，富而好礼者也。"子贡曰："《诗》云：\'如切如磋，如琢如磨\'，其斯之谓与？"子曰："赐也，始可与言《诗》已矣，告诸往而知来者。"',
+                    '不患人之不己知，患不知人也。'
+                ],
+                'other': [
+                    '孔子说："学到了知识，然后按一定的时间去实习它，不也高兴吗？有志同道合的人从远方来，不也快乐吗？人家不了解我，我却不怨恨，不也是君子吗？"',
+                    '有子说："那种孝敬父母、敬爱兄长的人，却喜欢触犯上级，是很少见的；不喜欢触犯上级却喜欢造反的人，更是从来没有的。有德行的人总是力求抓住这个根本。根本建立了便产生了仁道。孝敬父母、敬爱兄长，大概便是仁道的根本吧！"',
+                    '孔子说："花言巧语，伪装出一副和善的面孔，这种人很少是仁德的。"',
+                    '曾参说："我每天从多方面反省自己：替别人办事是不是尽心竭力了呢？与朋友交往是不是诚实守信了呢？对老师传授的功课，是不是用心复习了呢？"',
+                    '孔子说："治理拥有一千辆兵车的国家，应该恭敬谨慎地对待政事，并且讲究信用；节省费用，并且爱护人民；征用民力要尊重农时，不要耽误耕种、收获的时间。"',
+                    '孔子说："小孩子在父母跟前要孝顺，出外要敬爱师长，说话要谨慎，言而有信，和所有人都友爱相处，亲近那些具有仁爱之心的人。做到这些以后，如果还有剩余的精力，就用来学习文化知识。"',
+                    '子夏说："一个人能够尊重贤者而看轻女色；侍奉父母，能够竭尽全力；服侍君主，能够献出自己的生命；同朋友交往，说话诚实、恪守信用。这样的人，即使他自己说没有学过什么，我也一定要说他已经学习过了"',
+                    '孔子说："一个君子，如果不庄重，就没有威严，即使读书，所学也不会牢固。行事应当以忠和信这两种道德为主。不要和不忠不信的人交朋友。有了过错，要不怕改正。"',
+                    '曾子说："谨慎地对待父母的丧事，恭敬地祭祀远代祖先，就能使民心归向淳厚了。"',
+                    '子禽问子贡说："夫子每到一个国家，一定听得到这个国家的政事。那是求人家告诉他的呢，还是人家主动说给他听的呢？"子贡说："夫子是靠温和、善良、恭敬、节俭和谦让得来的。夫子的那种求得的方式，大概是不同于别人的吧？"',
+                    '孔子说："当他父亲活着时，要看他本人的志向；他父亲去世以后，就要考察他本人的具体行为了。如果他长期坚持父亲生前那些正确原则，就可以说是尽孝了。"',
+                    '有子说："礼的功用，以遇事做得恰当和顺为可贵。以前的圣明君主治理国家，最可贵的地方就在这里。他们做事，无论事大事小，都按这个原则去做。如遇到行不通的，仍一味地追求和顺，却并不用礼法去节制它，也是行不通的。"',
+                    '有子说："约言符合道德规范，这种约言才可兑现。态度谦恭符合礼节规矩，才不会遭受羞辱。所依靠的都是关系亲密的人，也就可靠了。"',
+                    '孔子说："君子食不追求饱足；居住不追求安逸；对工作勤奋敏捷，说话却谨慎；接近有道德有学问的人并向他学习，纠正自己的缺点，就可以称得上是好学了。"',
+                    '子贡说："贫穷却不巴结奉承，富贵却不骄傲自大，怎么样？孔子说："可以了，但还是不如虽贫穷却乐于道，虽富贵却谦虚好礼。"子贡说："《诗》上说：要像对待骨、角、象牙、玉石一样，切磋它，琢磨它，就是讲的这个意思吧？"孔子说："子贡呀，你能从我已经讲过的话中领会到我还没有说的意思，举一反三，我可以同你谈论《诗》了。"',
+                    '孔子说："不要担心别人不了解自己，应该担心的是自己不了解别人。"'
+                ]
+            };
+            
+            // 根据章节和类型返回对应译文
+            let translations;
+            switch(chapterId) {
+                case 'xueer':
+                    translations = xueerTranslations;
+                    break;
+                case 'weizheng':
+                    translations = weizhengTranslations;
+                    break;
+                case 'bayi':
+                    translations = bayiTranslations;
+                    break;
+                default:
+                    // 其他章节的译文待添加
+                    const typeNames = {
+                        'yang': '杨伯峻',
+                        'zhu': '朱熹',
+                        'other': '其他学者'
+                    };
+                    return `${typeNames[type]}的译文内容待添加...`;
+            }
+            
+            // 检查是否有对应章节、类型和段落的译文
+            if (translations && translations[type] && translations[type][verseNumber - 1]) {
+                return translations[type][verseNumber - 1];
+            } else {
+                const typeNames = {
+                    'yang': '杨伯峻',
+                    'zhu': '朱熹',
+                    'other': '其他学者'
+                };
+                return `${typeNames[type]}的译文内容待添加...`;
+            }
+        }
+        
+        // 获取章节现代应用
+        function getChapterApplication(chapterId) {
+            const applications = {
+                'weizheng': '领导者如果能够以道德为准则来治理国家或团队，就能赢得人们的衷心拥护和支持。',
+                'bayi': '在现代组织中，我们应当尊重规则和秩序，不能随意超越自己的权限范围。',
+                'liren': '选择良好的环境和朋友对个人成长至关重要。',
+                'gongyechang': '看人要看本质，不能仅凭表面现象或一时的处境来判断一个人的价值。',
+                'yongye': '识别和培养人才是领导者的重要职责。',
+                'shuer': '在创新的同时，我们也应该尊重和学习传统。',
+                'taibo': '谦逊和礼让是一种高尚的品德。',
+                'zihan': '真正的价值往往体现在行动中，而不是言语上。',
+                'xiangdang': '在不同的场合应该有适当的言行举止。',
+                'xianjin': '实践经验和理论知识都很重要，我们应该平衡发展。',
+                'yanyuan': '自我约束和遵守规范是实现和谐社会的基础。',
+                'zilu': '领导者应该以身作则，带领团队共同努力。',
+                'xianwen': '在其位谋其政，我们应该根据环境和职责来调整自己的行为。',
+                'weilinggong': '专业的人做专业的事，每个人都应该专注于自己的领域。',
+                'jishi': '我们应该通过和平的方式解决冲突，而不是诉诸武力。',
+                'yanghuo': '在面对不喜欢的人或事时，我们仍然应该保持基本的礼貌和原则。',
+                'weizi': '在关键时刻，我们应该坚持自己的信念和原则。',
+                'zizhang': '作为一个有责任感的人，我们应该在不同的场合都保持适当的态度和行为。',
+                'yaoyue': '领导者应该以中庸之道治理国家，关注民生。'
+            };
+            
+            return applications[chapterId] || '本章的现代应用内容待添加...';
+        }
+        
+        // 获取章节应用案例
+        function getChapterExample(chapterId) {
+            const examples = {
+                'weizheng': '一家企业的CEO注重企业文化建设，以诚信和创新为核心价值观，带领团队取得了显著的成就，员工们都愿意追随他共同发展。',
+                'bayi': '一个部门经理尊重公司的规章制度，从不越权行事，赢得了上级的信任和下属的尊重。',
+                'liren': '小明选择了一个积极向上的朋友圈，大家互相鼓励，共同进步，他的学习成绩和个人素质都得到了很大的提升。',
+                'gongyechang': '张总在招聘时，不仅看应聘者的学历和经验，更注重其品德和潜力，因此组建了一个非常有凝聚力的团队。',
+                'yongye': '李经理善于发现员工的优点和潜力，并根据每个人的特点安排合适的工作，团队的工作效率大大提高。',
+                'shuer': '这家公司在继承传统工艺的基础上，不断创新，开发出了既保留传统特色又符合现代需求的产品。',
+                'taibo': '小王在团队中总是谦逊礼让，主动承担困难的工作，把荣誉让给同事，因此赢得了大家的尊重和信任。',
+                'zihan': '李老师很少夸夸其谈，而是通过自己的行动和示范来教育学生，学生们都很尊敬他。',
+                'xiangdang': '在正式场合，张律师总是着装得体，言辞严谨；而在朋友聚会时，他则更加轻松随和，大家都很喜欢他。',
+                'xianjin': '这家公司既重视员工的理论知识培训，也注重实践经验的积累，因此员工的综合素质都很高。',
+                'yanyuan': '在疫情期间，大家都自觉遵守防疫规定，约束自己的行为，共同抗击疫情，体现了集体主义精神。',
+                'zilu': '王队长总是第一个到达工作现场，最后一个离开，带领队员们出色地完成了各项任务。',
+                'xianwen': '在公司发展顺利时，张经理积极为公司创造价值；在公司遇到困难时，他也不离不弃，与公司共渡难关。',
+                'weilinggong': '这家公司聘请了专业的法律顾问来处理法律事务，确保公司的运营合法合规。',
+                'jishi': '在处理国际争端时，双方通过外交途径进行谈判，最终达成了和平协议，避免了冲突的升级。',
+                'yanghuo': '虽然小张不喜欢他的同事，但在工作中仍然保持专业和礼貌，确保了团队的和谐。',
+                'weizi': '在面对不公正的待遇时，李医生仍然坚持自己的职业道德，尽心尽力地为患者服务。',
+                'zizhang': '作为一名医生，王医生在工作中认真负责，在生活中也严格要求自己，树立了良好的榜样。',
+                'yaoyue': '这位市长注重平衡各方利益，关注民生问题，实施了一系列惠民政策，得到了市民的广泛支持。'
+            };
+            
+            return examples[chapterId] || '本章的应用案例待添加...';
+        }
+        
+        // 初始化页面时更新章节列表状态
+        updateChapterListStatus();
+    </script>
+</body>
+</html>
